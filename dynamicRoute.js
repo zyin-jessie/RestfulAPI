@@ -7,3 +7,15 @@ app.get("/users/:id", (request, response) => {
     });
     
 });
+
+app.get("/users/:id", (request, response) => {
+    const parsedId = parseInt(request.params.id);
+    const query = "SELECT id, fname, lname FROM registered";
+
+    db.query(query, [parsedId], (err, data) => {
+
+        const find = data.find((user) => user.id == parsedId);
+        return response.json(find);
+    });
+    
+});
